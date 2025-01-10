@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk tools:overrideLibrary="androidx.appcompat.resources" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppBiblioteca"
+        tools:targetApi="31">
+        <activity
+            android:name=".frontend.CrearClienteAct"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.AniadirPrestamoAct"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.ClienteDetalles"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.PrestamoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.LibroDetallesAct"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.AniadirLibroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
+            android:name=".frontend.ActivityLibros"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.MenuPrincipal"
+            android:exported="false" />
+        <activity
+            android:name=".frontend.Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

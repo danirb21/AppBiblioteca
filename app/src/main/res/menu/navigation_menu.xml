@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ShowIn="navigation_view">
+
+    <group
+       android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/search_svgrepo_com"
+            android:title="Buscar Libro" />
+        <item
+            android:id="@+id/nav_prestamos"
+            android:icon="@drawable/iconocalendario"
+            android:title="Prestamos Libros" />
+
+    </group>
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout_icon"
+            android:title="Cerrar Sesion"/>
+    </group>
+</menu>
