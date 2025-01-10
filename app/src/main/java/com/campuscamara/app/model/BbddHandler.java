@@ -4,25 +4,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class BbddHandler {
@@ -198,14 +189,13 @@ public class BbddHandler {
     }
 
     public void eliminarLibro(String id) throws ExecutionException, InterruptedException {
-        List<String> listaPrestamos = new ArrayList<>();
         this.getDatabaseReference().child("libros").child(id).removeValue();
         Task<DataSnapshot> prestamos = this.getDatabaseReference().child("prestamos").get();
         Tasks.await(prestamos);
         this.dataSnapshot = prestamos.getResult();
         ArrayList<String> librosids = new ArrayList<>();
         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-            librosids = (ArrayList<String>) dataSnapshot1.child("librosIds").getValue(); //AQUI VER PORQUE DEVUELVE NULL
+            librosids = (ArrayList<String>) dataSnapshot1.child("librosIds").getValue();
             if (librosids != null) {
                 for (int i = 0; i < librosids.size(); i++) {
                     if (librosids.get(i).equals(id)) {
