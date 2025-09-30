@@ -1,57 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@android:color/darker_gray"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/tvFechaPrestamo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha del Préstamo: "
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tvFechaDevolucion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Fecha de Devolución: "
-        android:textSize="18sp" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroupLibros"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:theme="@style/Theme.MaterialComponents.Light"
-        >
-      <!--  app:singleLine="true"-->
-       <!-- app:singleSelection="false"-->
-        <!-- Añade un Chip básico para probar -->
-    </com.google.android.material.chip.ChipGroup>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvCliente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Cliente"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvFechaPrestamo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha del Préstamo: "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="48dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/baseline_delete_24"
-        app:srcCompat="@drawable/baseline_delete_24"
-        tools:srcCompat="@drawable/baseline_delete_24" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvFechaDevolucion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Fecha de Devolución: "
+            android:textSize="16sp"
+            android:textColor="@android:color/black"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupLibros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+        <TextView
+            android:id="@+id/tvCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Cliente"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Eliminar"
+            android:src="@drawable/baseline_delete_24" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

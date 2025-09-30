@@ -16,7 +16,6 @@ import com.campuscamara.app.model.Libro;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -89,7 +88,7 @@ public class ActivityLibros extends AppCompatActivity implements SearchView.OnQu
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(recyclerAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerAdapter.updateImages();
+            recyclerAdapter.updateCover();
         }
     }
 

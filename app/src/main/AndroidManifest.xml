@@ -18,6 +18,11 @@
         android:theme="@style/Theme.AppBiblioteca"
         tools:targetApi="31">
         <activity
+            android:name=".frontend.FiltroActivity"
+            android:exported="false"
+            android:theme="@style/FloatingActivityTheme"
+            />
+        <activity
             android:name=".frontend.CrearClienteAct"
             android:exported="false" />
         <activity

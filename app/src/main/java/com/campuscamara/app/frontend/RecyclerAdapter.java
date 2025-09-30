@@ -1,7 +1,6 @@
 package com.campuscamara.app.frontend;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +50,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Libro libro = this.listaLibro.get(position);
-        // if(cont!=lista.size()) {
         holder.titulotext.setText("Titulo:");
         holder.autortext.setText("Autor:");
         holder.generotext.setText("Genero:");
@@ -60,16 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.autortext.setText(holder.autortext.getText().toString() + " " + libro.getAutor());
         holder.generotext.setText(holder.generotext.getText().toString() + " " + libro.getGenero());
         holder.tipotext.setText(holder.tipotext.getText().toString() + " " + libro.getTipo());
-        //Glide.with(context).load(R.drawable.placeholder).into(holder.image);
-            Glide.with(context).load(this.listaLibro.get(position).getCoverurl()).placeholder(R.drawable.placeholder).into(holder.image);
-
-            //else{
-            //Glide.with(context).load(this.listaLibros.get(position).urlcover).placeholder(R.drawable.placeholder).into(holder.image);
-       // }
-        /*}else{
-            Glide.with(context).load(this.listaLibros.get(position).urlcover).placeholder(R.drawable.placeholder).into(holder.image);
-        }
-         */
+        Glide.with(context).load(this.listaLibro.get(position).getCoverurl()).placeholder(R.drawable.placeholder).into(holder.image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,15 +70,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         });
     }
 
-    public void updateImages() {
+    public void updateCover() {
         boolean bol=false;
+        List<Integer>bookwithoutcover=new ArrayList<>();
         int i=0;
+        int cont=0;
         while(i<this.listaOriginal.size() && this.listaOriginal.get(i).getCoverurl()!=null){
             i++;
         }
         if(i!=listaOriginal.size() || listaOriginal.get(i-1).getCoverurl()==null){
             bol=true;
         }
+        /*
         if(bol) {
             for (int j = 0; j < listaOriginal.size(); j++) {
                 this.listaLibros.add(new LibrosIsbn(listaOriginal.get(j).getId(), listaOriginal.get(j).getTitulo()));
@@ -106,8 +98,36 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     notifyDataSetChanged();
                 }
             });
+         */
+        if(bol) {
+            for (int j = 0; j < listaOriginal.size(); j++) {
+                if (listaOriginal.get(j).getCoverurl() == null) {
+                    this.listaLibros.add(
+                            new LibrosIsbn(listaOriginal.get(j).getId(), listaOriginal.get(j).getTitulo())
+                    );
+                }
+            }
+            BookCoverSearch.SearchCover(this.listaLibros, new BookCoverSearch.Callback() {
+                @Override
+                public void onCoverSearch(List<LibrosIsbn> librosIsbns) {
+                    int index = 0;
+                    for (int j = 0; j < listaOriginal.size(); j++) {
+                        if (listaOriginal.get(j).getCoverurl() == null) {
+                            listaOriginal.get(j).setCoverurl(librosIsbns.get(index).urlcover);
+                            bbddHandler.modificarLibro(
+                                    listaOriginal.get(j).getId(),
+                                    "coverurl",
+                                    listaOriginal.get(j).getCoverurl()
+                            );
+                            index++;
+                        }
+                    }
+                    listaLibro.clear();
+                    listaLibro.addAll(listaOriginal);
+                    notifyDataSetChanged();
+                }
+            });
         }
-
     }
     public void filtrarTitulo(String texto) {
         int longitud = texto.length();
@@ -126,7 +146,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
             notifyDataSetChanged();
         }
-
 
     @Override
     public int getItemCount() {

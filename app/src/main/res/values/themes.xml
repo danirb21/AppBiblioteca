@@ -22,5 +22,10 @@
     <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/spinner_custom</item>
     </style>
+    <style name="FloatingActivityTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 
 </resources>

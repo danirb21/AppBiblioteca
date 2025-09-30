@@ -165,7 +165,7 @@ public class PrestamoActivity extends AppCompatActivity {
             RecyclerView recyclerView = findViewById(R.id.recyclerView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(prestamoAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setLayoutManager(new LinearLayoutManager(PrestamoActivity.this));
 
         }
     }

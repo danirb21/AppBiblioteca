@@ -42,23 +42,31 @@ public class BookCoverSearch {
         protected Void doInBackground(Void... voids) {
             try {
                 for (int i = 0; i < this.libros.size(); i++) {
-                   // synchronized (BookCoverSearch.class) {
-                        this.libros.get(i).setUrlcover("https://covers.openlibrary.org/b/isbn/" + getIsbn(i, this.libros.get(i).getTitle()) + "-L.jpg");
-                   // }
+                    String coverId = getCoverEditionKey(this.libros.get(i).getTitle());
+                    if (coverId != null) {
+                        this.libros.get(i).setUrlcover(
+                                "https://covers.openlibrary.org/b/olid/" + coverId + "-L.jpg"
+                        );
+                    } else {
+                        // Si no hay portada -> null o placeholder
+                        this.libros.get(i).setUrlcover(null);
+                    }
                 }
-            }catch(IOException ioe){
+            } catch(IOException ioe){
                 ioe.printStackTrace();
             }
             return null;
         }
 
-        private String getIsbn(int position, String title) throws IOException {
-            String url="https://openlibrary.org/search.json?title=";
-            String titulo=StringUtils.stripAccents(title.toLowerCase().replace(" ","+").trim());
-            url=url+titulo;
+        private String getCoverEditionKey(String title) throws IOException {
+            String url = "https://openlibrary.org/search.json?title=";
+            String titulo = StringUtils.stripAccents(title.toLowerCase().replace(" ","+").trim());
+            url = url + titulo;
+
             HttpURLConnection conexion = (HttpURLConnection) new URL(url).openConnection();
             conexion.setRequestMethod("GET");
             conexion.connect();
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
@@ -66,32 +74,31 @@ public class BookCoverSearch {
                 response.append(line);
             }
             reader.close();
-            String isbn = parserJSONtoIsbn(response.toString());
-            return isbn;
+
+            //System.out.println(response.toString());
+
+            return parserJSONtoCoverEditionKey(response.toString());
         }
-        private String parserJSONtoIsbn(String json){
-            String isbn = null;
+
+        private String parserJSONtoCoverEditionKey(String json){
             try {
                 JSONObject jsonObject = new JSONObject(json);
                 JSONArray docs = jsonObject.getJSONArray("docs");
                 if (docs.length() > 0) {
                     JSONObject firstDoc = docs.getJSONObject(0);
-                    if (firstDoc.has("isbn")) {
-                        JSONArray isbnArray = firstDoc.getJSONArray("isbn");
-                        if (isbnArray.length() > 0) {
-                            isbn = isbnArray.getString(0);
-                        }
+                    if (firstDoc.has("cover_edition_key")) {
+                        return firstDoc.getString("cover_edition_key");
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return isbn;
+            return null;
         }
-
         @Override
         protected void onPostExecute(Void voids) {
             this.callback.onCoverSearch(this.libros);
         }
     }
+
 }
