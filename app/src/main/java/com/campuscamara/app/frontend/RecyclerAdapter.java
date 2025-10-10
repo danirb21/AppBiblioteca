@@ -174,7 +174,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         private String id;
         private String title;
         private String urlcover;
-        private String isbn;
 
         public LibrosIsbn(String id,String t) {
             this.setId(id);
@@ -191,9 +190,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public void setUrlcover(String urlcover) {
             this.urlcover = urlcover;
         }
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
+
         public void setId(String id){
             this.id=id;
         }
