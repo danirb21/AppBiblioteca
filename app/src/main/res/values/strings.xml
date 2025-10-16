@@ -3,6 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="RutaServidor">https://appbiblioteca-d5b69-default-rtdb.europe-west1.firebasedatabase.app/"</string>
+    <string-array name="filtros_libro">
+        <item>Título</item>
+        <item>Autor</item>
+        <item>Género</item>
+    </string-array>
     <string name="copyright">AppBiblioteca</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

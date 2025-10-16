@@ -146,7 +146,39 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             }
             notifyDataSetChanged();
         }
+    public void filtrarAutor(String texto) {
+        int longitud = texto.length();
+        listaLibro.clear();
+        if (longitud == 0) {
+            listaLibro.addAll(this.listaOriginal);
+        } else {
+            for (Libro libro : listaOriginal) {
+                if (libro.getAutor() != null && texto != null) {
+                    if (StringUtils.stripAccents(libro.getAutor().toLowerCase()).contains(texto.toLowerCase())) {
+                        listaLibro.add(libro);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
+    public void filtrarGenero(String texto) {
+        int longitud = texto.length();
+        listaLibro.clear();
+        if (longitud == 0) {
+            listaLibro.addAll(this.listaOriginal);
+        } else {
+            for (Libro libro : listaOriginal) {
+                if (libro.getGenero() != null && texto != null) {
+                    if (StringUtils.stripAccents(libro.getGenero().toLowerCase()).contains(texto.toLowerCase())) {
+                        listaLibro.add(libro);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return listaLibro.size();
